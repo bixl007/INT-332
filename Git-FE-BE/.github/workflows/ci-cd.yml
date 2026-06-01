@@ -1,0 +1,26 @@
+name: Multi-Container CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  build-and-deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Frontend Image
+        run: docker build -t frontend-app ./frontend
+
+      - name: Build Backend Image
+        run: docker build -t backend-app ./backend
+
+      - name: Verify Docker Images
+        run: docker images
